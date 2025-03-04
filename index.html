@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Drone: VLA Model & Benchmark</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', 'Arial', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f0f2f5 0%, #ffffff 100%);
+            color: #2d3748;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: #2b6cb0;
+            margin: 2rem 0 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #2b6cb0;
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .authors {
+            font-style: italic;
+            color: #718096;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 3rem 0;
+        }
+
+        .images img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .images img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        a {
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            color: #ffffff;
+            background-color: #2b6cb0;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        ul li {
+            margin: 0.75rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .images img {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .images img {
+                height: 120px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Cognitive Drone: A Vision-Language-Action Model & Benchmark for UAV Cognitive Reasoning</h1>
+
+        <div class="images">
+            <img src="teaser.png" alt="Project Teaser" onclick="openModal('teaser.png')">
+            <img src="system_architecture.png" alt="System Architecture" onclick="openModal('system_architecture.png')">
+            <img src="examples.png" alt="Task Examples" onclick="openModal('examples.png')">
+            <img src="benchmark_results.png" alt="Benchmark Results" onclick="openModal('benchmark_results.png')">
+        </div>
+
+        <p>The <strong>Cognitive Drone</strong> project presents an advanced Vision-Language-Action (VLA) framework and a robust benchmark tailored for enhancing the cognitive reasoning abilities of Unmanned Aerial Vehicles (UAVs). By integrating vision, language processing, and actionable decision-making, this initiative seeks to revolutionize autonomous drone operations for real-world applications.</p>
+
+        <div class="authors">
+            <p><strong>Research Team:</strong> Artem Lykov, Valerii Serpiva, Muhammad Haris Khan, Oleg Sautenkov, Artyom Myshlyaev, Grik Tadevosyan, Yasheerah Yaqoot, Dzmitry Tsetserukou</p>
+        </div>
+
+        
+        <div class="abstract">
+            <p><strong>Abstract:</strong> This paper introduces CognitiveDrone, a novel Vision-Language-Action (VLA) model tailored for complex Unmanned Aerial Vehicles (UAVs) tasks that demand advanced cognitive abilities. Trained on a dataset comprising over 8,000 simulated flight trajectories across three key categories—Human Recognition, Symbol Understanding, and Reasoning—the model generates real-time 4D action commands based on first-person visual inputs and textual instructions. To further enhance performance in intricate scenarios, we propose CognitiveDrone-R1, which integrates an additional Vision-Language Model (VLM) reasoning module to simplify task directives prior to high-frequency control. Experimental evaluations using our open-source benchmark, CognitiveDroneBench, reveal that while a racing-oriented model (RaceVLA) achieves an overall success rate of 31.3%, the base CognitiveDrone model reaches 59.6%, and CognitiveDrone-R1 attains a success rate of 77.2%. These results demonstrate improvements of up to 30% in critical cognitive tasks, underscoring the effectiveness of incorporating advanced reasoning capabilities into UAV control systems. Our contributions include the development of a state-of-the-art VLA model for UAV control and the introduction of the first dedicated benchmark for assessing cognitive tasks in drone operations. </p>
+        </div>
+        
+        <h2>Dataset</h2>
+        <p></p>
+        <ul>
+            <li><a href="https://huggingface.com/datasets/ArtemLykov/cognitiveDrone_dataset" target="_blank">Hugging Face</a></li>
+        </ul>
+
+        <h2>Publications</h2>
+        <p></p>
+        <ul>
+            <li><a href="https://arxiv.org" target="_blank">arXiv Preprint</a></li>
+            <li><a href="https://arxiv.org" target="_blank">Article</a></li>
+        </ul>
+        
+        <h2>Code</h2>
+        <p></p>
+        <ul>
+            <li><a href="https://github.com/sautenich/cognitivedrone" target="_blank">GitHub</a></li>
+        </ul>
+
+        
+    </div>
+
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <img id="modalImage" src="" alt="Enlarged Image">
+    </div>
+
+    <footer>
+        <p>© 2025 Cognitive Drone Project. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
